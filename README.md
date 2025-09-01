@@ -1,24 +1,25 @@
-# Projeto de Manutenção Preditiva com Machine Learning
-## Introdução
-Este projeto desenvolve um sistema inteligente para manutenção preditiva de máquinas industriais, utilizando dados de sensores IoT. O objetivo principal é prever a ocorrência e o tipo de falha a partir de medições de sensores, gerando insights para otimizar as operações e evitar paradas não planejadas na produção.
+# Projeto IA — Sistema de Manutenção Preditiva em Máquinas Industriais
+Este projeto aplica técnicas de aprendizado de máquina para construir um sistema inteligente de manutenção preditiva, capaz de identificar falhas em máquinas industriais com base em dados de sensores.
 
-## Metodologia
-A metodologia adotada seguiu as melhores práticas da ciência de dados, abrangendo desde a limpeza inicial dos dados até a implantação do modelo.
+## Contexto do Projeto
+O desafio foi desenvolver um sistema de controle de qualidade para um parque fabril, utilizando dados de dispositivos IoT para monitorar o comportamento das máquinas. O objetivo é prever a ocorrência e o tipo de falha, fornecendo a probabilidade associada, para otimizar a manutenção e evitar paradas inesperadas.
 
-## Preparação e Limpeza de Dados
-- Identificação de Anomalias: Dados brutos foram analisados para identificar e tratar inconsistências. Valores como 'sim', 'não' e '-' foram mapeados para o formato binário (1 e 0).
+## Metodologia Utilizada
+O projeto foi desenvolvido com uma abordagem robusta de machine learning supervisionado.
 
-- Tratamento de Outliers e Sinais: Foi adotada uma abordagem contextual para outliers. Valores fisicamente impossíveis (e.g., temperatura negativa em Kelvin) foram tratados como NaN, enquanto outliers válidos (e.g., velocidade_rotacional negativa) foram mantidos, pois indicavam estados operacionais específicos e valiosos para o modelo.
+- Processo de Análise e Modelagem: Foi adotada uma estratégia de classificação multi-rótulo, treinando 5 modelos independentes, um para cada tipo de falha.
 
-- Imputação e Codificação: Valores nulos em colunas numéricas foram imputados com a mediana. Variáveis categóricas (como o tipo de máquina) foram transformadas usando One-Hot Encoding para serem processadas pelos algoritmos.
+- Pipeline de Pré-processamento: Um pipeline automatizado com ColumnTransformer foi utilizado para imputar valores nulos, escalonar dados numéricos com MinMaxScaler e aplicar OneHotEncoder em variáveis categóricas.
 
-## Estratégia de Modelagem
-O problema foi abordado como uma tarefa de Classificação Multi-rótulo. A estratégia consistiu em treinar 5 modelos de forma independente, um para cada tipo de falha. A decisão de qual algoritmo usar para cada falha foi baseada em testes de desempenho.
+- Seleção e Otimização: Os modelos RandomForestClassifier e GradientBoostingClassifier foram testados e otimizados com RandomizedSearchCV. A escolha final de cada modelo foi baseada na performance obtida para cada tipo de falha.
 
-Algoritmos Utilizados:
+## Gestão de Atividades
+A organização do projeto seguiu um fluxo de trabalho padrão da ciência de dados, com documentação clara em scripts Python:
 
-- RandomForestClassifier: Selecionado por sua alta precisão, robustez e capacidade de fornecer a importância das características.
+- EDA (Exploração de Dados): Análise estatística e visualização de relações e outliers.
 
-- GradientBoostingClassifier: Escolhido por seu desempenho superior em algumas falhas, devido à sua abordagem de correção de erros sequencial.
+- Limpeza de Dados: Tratamento de valores inconsistentes e anomalias físicas (como temperaturas negativas em Kelvin).
 
-- Otimização de Hiperparâmetros: Foi utilizado o RandomizedSearchCV para otimizar os hiperparâmetros dos modelos, buscando a melhor combinação de configurações para maximizar a performance.
+- Modelagem e Tuning: Treinamento, otimização de hiperparâmetros e seleção do melhor algoritmo para cada tipo de falha.
+
+- Geração de Predições: Criação e exportação de um arquivo final com as previsões.
